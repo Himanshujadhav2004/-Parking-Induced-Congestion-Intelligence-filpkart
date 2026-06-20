@@ -3,6 +3,8 @@
 **Gridlock Hackathon 2.0 — Round 2 Prototype**
 Problem statement: *Poor Visibility on Parking-Induced Congestion*
 
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-picif--ai.streamlit.app-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://picif-ai.streamlit.app/)
+
 > How can AI-driven parking intelligence detect illegal parking hotspots and
 > quantify their impact on traffic flow to enable targeted enforcement?
 

@@ -20,6 +20,30 @@ persistence), and layers an **unsupervised KMeans model** on top to assign
 priority tiers — so this is real AI-driven classification, not just a
 sorted count, while remaining fully explainable to a non-technical reviewer.
 
+## Screenshots
+
+### Dashboard overview — KPI header & 3D hotspot map
+![Dashboard overview](screenshots/Clipboard%20(1).png)
+
+### City-wide 3D enforcement heatmap
+![City-wide hotspot map](screenshots/Clipboard%20(2).png)
+
+### Close-up hex view (Vannarapete area)
+![Close-up hex map](screenshots/Clipboard.png)
+
+### Priority enforcement list — top 25 hotspots ranked by CIS
+![Priority enforcement list](screenshots/Clipboard%20(3).png)
+
+### Temporal patterns — day × hour violation heatmap & violation type mix
+![Temporal heatmap](screenshots/Clipboard%20(4).png)
+
+### Hotspot drill-down — CIS metrics, tag breakdown & 2-week forecast
+![Hotspot drill-down](screenshots/Clipboard%20(6).png)
+
+![2-week forecast chart](screenshots/Clipboard%20(7).png)
+
+---
+
 ## Quick start
 
 ```bash

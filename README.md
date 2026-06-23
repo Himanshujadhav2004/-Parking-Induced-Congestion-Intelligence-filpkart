@@ -1,6 +1,8 @@
 # TrafficEye Command 👁️🚦
-**Flipkart Gridlock Hackathon 2.0 — Round 2 Command Center Prototype**
+
 *AI-Driven Hotspot Detection &middot; Physics-Informed Congestion Scoring &middot; Resource-Constrained Enforcement Optimization*
+
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-trafficeye.streamlit.app-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://trafficeye.streamlit.app/)
 
 ---
 

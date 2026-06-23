@@ -1,130 +1,103 @@
 # Parking-Induced Congestion Intelligence
 
-**Gridlock Hackathon 2.0 — Round 2 Prototype**
+**Gridlock Hackathon 2.0 — Round 2 Command Center Prototype**
 Problem statement: *Poor Visibility on Parking-Induced Congestion*
 
-[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-picif--ai.streamlit.app-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://picif-ai.streamlit.app/)
-
-> How can AI-driven parking intelligence detect illegal parking hotspots and
-> quantify their impact on traffic flow to enable targeted enforcement?
-
-## What this is
-
-A working prototype that turns ~298K raw illegal-parking enforcement
-records into a ranked, explainable, map-based enforcement priority list —
-moving from *reactive patrol* to *targeted, data-driven deployment*.
-
-It does **not** claim to have ground-truth congestion/speed data (the
-dataset doesn't include that). Instead it builds a transparent, editable
-**Congestion Impact Score** from signals that are genuinely in the data
-(severity of obstruction, junction proximity, timing concentration,
-persistence), and layers an **unsupervised KMeans model** on top to assign
-priority tiers — so this is real AI-driven classification, not just a
-sorted count, while remaining fully explainable to a non-technical reviewer.
-
-## Screenshots
-
-### Dashboard overview — KPI header & 3D hotspot map
-![Dashboard overview](screenshots/Clipboard%20(1).png)
-
-### City-wide 3D enforcement heatmap
-![City-wide hotspot map](screenshots/Clipboard%20(2).png)
-
-### Close-up hex view (Vannarapete area)
-![Close-up hex map](screenshots/Clipboard.png)
-
-### Priority enforcement list — top 25 hotspots ranked by CIS
-![Priority enforcement list](screenshots/Clipboard%20(3).png)
-
-### Temporal patterns — day × hour violation heatmap & violation type mix
-![Temporal heatmap](screenshots/Clipboard%20(4).png)
-
-### Hotspot drill-down — CIS metrics, tag breakdown & 2-week forecast
-![Hotspot drill-down](screenshots/Clipboard%20(6).png)
-
-![2-week forecast chart](screenshots/Clipboard%20(7).png)
+> How can AI-driven parking intelligence detect illegal parking hotspots, quantify their physics and monetary impact on traffic flow, and optimize targeted enforcement?
 
 ---
 
-## Quick start
+## What this is
+
+An interactive **Command Center Dashboard** that transforms ~298K raw illegal-parking enforcement records into a spatiotemporal, physics-informed, map-based enforcement priority platform. 
+
+Rather than relying on reactive patrols or basic violation counts, this prototype layers an unsupervised **KMeans clustering model** with **traffic flow theory** and **economic delay benchmarks** to provide traffic commanders with clear, explainable, and actionable insights.
+
+---
+
+## Key Features & Improvements (v2 vs. v1)
+
+### 1. 🌓 Dual Command Center Themes (Dark & Light)
+- **Dark Theme (Default)**: A premium, dark-mode design system tailored for traffic control rooms with neon metric cards and elevation heatmaps.
+- **Light Theme**: A clean, high-contrast, light-grey style with dark grey typography and an adaptive light map basemap for day-shift operators.
+- **Material Symbols**: Integrated vector Google Material Symbols across headers, sidebars, tabs, and buttons, replacing basic emoji markers.
+
+### 2. ⚡ Physics-Informed Capacity Loss (Greenshields + LWR Theory)
+Calculates traffic flow impacts dynamically using classic traffic engineering formulas:
+- **Greenshields fundamental diagram (1935)**: Estimates effective bottleneck speed: $u = u_f \times (1 - \frac{k}{k_j})$ where density ($k$) is derived from violation obstruction severity.
+- **Lane Capacity Loss %**: Quantifies the percentage of structural carriageway throughput lost.
+- **LWR Shockwave Queue (km)**: Models upstream shockwave queue propagation based on Lighthill-Whitham-Richards traffic flow theory.
+
+### 3. 💰 Economic Delay Costing (TERI Benchmark)
+Translates congestion delays into monetary terms:
+- Applies the **TERI 2018 benchmark** (₹50 per vehicle-hour delay) to calculate daily and annual delay costs per hotspot.
+- Displays city-wide daily delay costs in a dedicated KPI card to help prioritize enforcement based on economic losses.
+
+### 4. 🚔 Greedy Patrol Schedule Optimizer
+- Solve the resource allocation problem using a greedy approximation: Critical hotspots require **2 officer-hours**; all other tiers require **1 officer-hour**.
+- Input the number of available officers and shift duration to instantly build the most efficient patrol schedule.
+- Compares the results against a random patrol baseline to report percentage efficiency gains.
+
+### 5. ⚖️ What-If CIS Formula Weight Adjuster
+- Adjust the relative weights of the four Congestion Impact Score components (Severity, Junction Proximity, Busy-Hour Share, and Persistence) in real-time.
+- Visualizes position shifts in the top 25 priority list (Rank $\Delta$) and flags "biggest movers" (shifting >5 spots) instantly without reloading the dataset.
+
+### 6. 🕐 Hour-of-Day Violation Density Map
+- Drag the hourly slider (0–23 IST) in the *Temporal Patterns* tab to animate spatiotemporal violation concentrations.
+- Uses a yellow-to-red density gradient on the theme-aware map style.
+
+---
+
+## Quick Start
+
+### Installation
+Ensure you have Python 3.10+ installed, then run:
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-The app loads instantly using a bundled 25,000-row random sample
-(`data/sample_violations.csv`) so you can demo it immediately. To run the
-full analysis:
+### Data Options
+By default, the dashboard runs instantly using a bundled **25,000-row sample** (`data/sample_violations.csv`) for demonstration purposes.
 
-1. Copy `jan_to_may_police_violation_anonymized791b166.csv` into the `data/` folder.
-2. In the sidebar, switch **Data source** to "Custom CSV path" and point it
-   at that file (default path already matches the suggested location).
+To analyze the full dataset:
+1. Place the full anonymized CSV (`jan_to_may_police_violation_anonymized791b166.csv`) inside the `data/` folder.
+2. In the sidebar, select **Custom CSV path** and input the file path.
+3. The initial load will take ~20 seconds to bin coordinates (H3) and fit KMeans, but all subsequent runs are cached.
 
-First load of the full dataset takes ~20–25 seconds (H3 binning + KMeans
-over ~300K rows); it's cached after that, including across sidebar
-interactions that don't change the data source.
+---
 
-## Project structure
+## Project Structure
 
 ```
 parking_intelligence/
-├── app.py               # Streamlit dashboard (map, tables, drill-down, methodology)
-├── data_pipeline.py      # Load/clean raw CSV, parse violation tags, severity weights, IST time features
-├── hotspot_engine.py      # H3 binning, feature aggregation, scoring, KMeans tiering, trend & forecast
+├── app.py               # Streamlit Command Center (CSS styling, maps, components)
+├── data_pipeline.py     # Clean raw CSV, parse tag arrays, compute severity weights
+├── hotspot_engine.py    # H3 hex binning, Greenshields physics, TERI costing, KMeans, patrol optimizer
 ├── data/
-│   └── sample_violations.csv   # 25k-row sample for instant demo
+│   └── sample_violations.csv   # 25k-row random sample for quick run
 ├── requirements.txt
 └── README.md
 ```
 
-## How the scoring works (also explained in the app's "Methodology" tab)
+---
 
-1. **H3 hex binning** (`hotspot_engine.add_hex_id`) — groups nearby violations
-   into ~0.10 km² cells (resolution 9, adjustable via the sidebar), avoiding
-   the inconsistency of free-text addresses.
-2. **Severity weighting** (`data_pipeline.PARKING_SEVERITY_WEIGHTS`) — each
-   violation tag gets a 0–3 weight for how much it typically blocks a lane
-   or junction approach (e.g. *Double Parking* = 3, *Parking on Footpath* = 1).
-   This is an explicit, editable assumption — recalibrate with a traffic
-   engineer's input if available.
-3. **Junction proximity** — share of a hotspot's violations recorded at a
-   named junction (chokepoints cause disproportionate downstream effects).
-4. **Busy-hour concentration** — share of violations during the hours that,
-   *empirically in this dataset*, account for most enforcement activity.
-   We deliberately did **not** hardcode a textbook rush-hour window (see
-   caveat below).
-5. **Persistence** — fraction of days in the observation window the
-   hotspot was active (chronic vs. one-off).
+## How the Congestion Impact Score (CIS) is Built
 
-These combine into a 0–100 **Congestion Impact Score**:
-`CIS = 40% severity + 20% junction proximity + 20% busy-hour share + 20% persistence`
+1. **H3 Spatial Binning**: Coordinates are binned into H3 hexagonal cells (~0.1 km², resolution 9 by default) to aggregate adjacent violations and bypass inconsistent text addresses.
+2. **Obstruction Severity**: Weighted on a 0–3 scale based on obstruction potential (e.g. *Double Parking* = 3.0, *Footpath Parking* = 1.0).
+3. **Junction Proximity**: Share of violations tagged at named junctions (chokepoints cause higher delay).
+4. **Busy-Hour Share**: Portion of violations occurring during empirically busiest hours.
+5. **Persistence**: Share of observation days with active violations.
 
-An unsupervised **KMeans** model (on the raw underlying features, not just
-the CIS) then assigns each hotspot to a **Critical / High / Medium / Low**
-tier, so a small but chronically obstructive spot can outrank a
-high-volume-but-occasional one. A simple linear trend over weekly counts
-flags **emerging hotspots** and produces a 2-week forward forecast for
-patrol planning.
+$$\text{CIS} = 40\% \text{ Severity} + 20\% \text{ Junction} + 20\% \text{ Busy-Hour} + 20\% \text{ Persistence}$$
 
-## Honest limitations (worth stating to judges)
+Unsupervised **KMeans Clustering** classifies the hotspots into **Critical / High / Medium / Low** priority tiers by examining the underlying features, rather than sorting by a simple count metric.
 
-- **No live traffic/speed data** in this dataset — "congestion impact" is a
-  domain-informed proxy built from the enforcement record itself, not a
-  measured delay. We say this explicitly rather than implying otherwise.
-- **Timestamp caveat**: `created_datetime`'s hourly distribution doesn't
-  follow a typical commute curve, suggesting it reflects when an officer/
-  device logged the record rather than a confirmed live-detection time.
-  We handle this by deriving "busy hours" empirically from the data instead
-  of assuming rush hours, and we flag this directly in the dashboard.
-- H3 resolution is a tunable precision/noise trade-off, exposed as a slider.
+---
 
-## Where this plugs into the bigger hackathon picture
+## Limitations (Candidly Stated)
 
-This module is built to interoperate with the other two problem statements
-in this hackathon (see the Methodology tab for the full pitch):
-- **Event-driven congestion (ASTRAM data)** — event proximity could
-  temporarily re-rank hotspots during rallies/festivals/construction.
-- **CV-based violation detection** — live camera detections could feed this
-  engine in near-real-time instead of after-the-fact records, removing the
-  timestamp-reliability caveat above.
+- **Proxy-Based Congestion**: No live telemetry sensor data is present in the dataset. "Congestion impact" and queue propagation are computed proxies based on traffic flow theory.
+- **Timestamp Caveat**: The violation logs represent when records were entered/saved by officers, rather than live-camera detection timestamps. Commute hours are derived empirically from the logs.

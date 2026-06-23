@@ -189,6 +189,14 @@ html, body, [data-testid="stAppViewContainer"] {
     color: white !important; border: none !important; border-radius: 6px !important;
     font-weight: 600 !important;
 }
+[data-testid="stDownloadButton"] > button::before {
+    font-family: 'Material Symbols Outlined' !important;
+    content: 'download' !important;
+    margin-right: 0.35rem !important;
+    font-size: 1.1rem !important;
+    vertical-align: middle !important;
+    display: inline-block !important;
+}
 
 /* ── FORM ELEMENTS ──────────────────────────────────────────── */
 [data-testid="stSelectbox"] > div > div {
@@ -223,9 +231,236 @@ hr { border-color: #1a3054 !important; margin: 0.75rem 0 !important; }
 
 /* ── CAPTION ────────────────────────────────────────────────── */
 [data-testid="stCaptionContainer"] { color: #475569 !important; }
+
+/* ── TITLE GRADIENT TEXT ────────────────────────────────────── */
+.title-gradient-text {
+    background: linear-gradient(135deg,#60a5fa,#a78bfa 50%,#34d399) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
 </style>
 """
-st.markdown(DARK_CSS, unsafe_allow_html=True)
+
+# ---------------------------------------------------------------------------
+# Light theme CSS
+# ---------------------------------------------------------------------------
+LIGHT_CSS = """
+<style>
+/* ── MATERIAL SYMBOLS (same as dark) ──────────────────────────── */
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal; font-style: normal; font-size: 1.1rem;
+    display: inline-block; line-height: 1; text-transform: none;
+    letter-spacing: normal; word-wrap: normal; white-space: nowrap;
+    direction: ltr; vertical-align: middle; margin-right: 0.35rem;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+/* ── BASE ───────────────────────────────────────────────────── */
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #f1f5f9 !important;
+    color: #1e293b !important;
+    font-family: 'Inter', sans-serif !important;
+}
+[data-testid="stHeader"] { background: transparent !important; }
+.block-container {
+    padding-top: 1rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    max-width: 100% !important;
+}
+
+/* ── SIDEBAR ────────────────────────────────────────────────── */
+[data-testid="stSidebar"] {
+    background: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+[data-testid="stSidebarContent"] { padding-top: 1rem; }
+
+/* Ensure all sidebar text is readable in Light mode */
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] label p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] li,
+[data-testid="stSidebar"] p {
+    color: #1e293b !important;
+}
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p,
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] li,
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] span {
+    color: #334155 !important;
+}
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p,
+[data-testid="stSidebar"] .stCaptionContainer {
+    color: #64748b !important;
+}
+[data-testid="stTextInput"] input {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+    border-radius: 6px !important;
+}
+
+/* ── METRIC CARDS ───────────────────────────────────────────── */
+[data-testid="metric-container"] {
+    background: linear-gradient(145deg, #ffffff, #f8fafc) !important;
+    border: 1px solid #e2e8f0 !important;
+    border-top: 3px solid #3b82f6 !important;
+    border-radius: 10px !important;
+    padding: 0.8rem 1rem !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+    transition: transform 0.15s ease !important;
+}
+[data-testid="metric-container"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 28px rgba(59,130,246,0.14) !important;
+}
+[data-testid="stMetricLabel"] > div {
+    color: #94a3b8 !important;
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+[data-testid="stMetricValue"] > div {
+    color: #0f172a !important;
+    font-weight: 800 !important;
+}
+[data-testid="stMetricDelta"] { color: #059669 !important; }
+
+/* ── TABS ───────────────────────────────────────────────────── */
+[data-testid="stTabs"] [role="tablist"] {
+    border-bottom: 2px solid #e2e8f0;
+    background: transparent;
+    gap: 4px;
+}
+[data-testid="stTabs"] button[role="tab"] {
+    color: #94a3b8 !important;
+    font-weight: 600 !important;
+    font-size: 0.82rem !important;
+    border-radius: 6px 6px 0 0 !important;
+    padding: 0.5rem 0.75rem 0.5rem 2.1rem !important;
+    background: transparent !important;
+    transition: color 0.15s ease !important;
+    position: relative !important;
+}
+[data-testid="stTabs"] button[role="tab"]::before {
+    font-family: 'Material Symbols Outlined' !important;
+    font-size: 1rem !important;
+    position: absolute !important;
+    left: 0.6rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    line-height: 1 !important;
+    font-weight: normal !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+[data-testid="stTabs"] button[role="tab"]:nth-child(1)::before { content: 'format_list_bulleted'; }
+[data-testid="stTabs"] button[role="tab"]:nth-child(2)::before { content: 'schedule'; }
+[data-testid="stTabs"] button[role="tab"]:nth-child(3)::before { content: 'manage_search'; }
+[data-testid="stTabs"] button[role="tab"]:nth-child(4)::before { content: 'local_police'; }
+[data-testid="stTabs"] button[role="tab"]:nth-child(5)::before { content: 'balance'; }
+[data-testid="stTabs"] button[role="tab"]:nth-child(6)::before { content: 'menu_book'; }
+[data-testid="stTabs"] button[role="tab"]:hover { color: #475569 !important; }
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
+    color: #1d4ed8 !important;
+    border-bottom: 2px solid #3b82f6 !important;
+    background: rgba(59,130,246,0.05) !important;
+}
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"]::before {
+    color: #1d4ed8 !important;
+}
+
+/* ── DATAFRAME ──────────────────────────────────────────────── */
+[data-testid="stDataFrame"] {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+/* ── BUTTONS ────────────────────────────────────────────────── */
+[data-testid="stButton"] > button {
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+[data-testid="stButton"] > button:hover {
+    background: linear-gradient(135deg, #1e40af, #2563eb) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(59,130,246,0.3) !important;
+}
+[data-testid="stDownloadButton"] > button {
+    background: linear-gradient(135deg, #065f46, #059669) !important;
+    color: white !important; border: none !important; border-radius: 6px !important;
+    font-weight: 600 !important;
+}
+[data-testid="stDownloadButton"] > button::before {
+    font-family: 'Material Symbols Outlined' !important;
+    content: 'download' !important;
+    margin-right: 0.35rem !important;
+    font-size: 1.1rem !important;
+    vertical-align: middle !important;
+    display: inline-block !important;
+}
+
+/* ── FORM ELEMENTS ──────────────────────────────────────────── */
+[data-testid="stSelectbox"] > div > div {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+    border-radius: 6px !important;
+}
+[data-testid="stSlider"] > div > div > div { background: #3b82f6 !important; }
+
+/* ── ALERTS ─────────────────────────────────────────────────── */
+[data-testid="stAlert"] { border-radius: 8px !important; }
+.stSuccess { border-left: 4px solid #10b981 !important; background: rgba(16,185,129,0.07) !important; }
+.stInfo { border-left: 4px solid #3b82f6 !important; background: rgba(59,130,246,0.07) !important; }
+.stWarning { border-left: 4px solid #f59e0b !important; background: rgba(245,158,11,0.07) !important; }
+
+/* ── EXPANDER ───────────────────────────────────────────────── */
+[data-testid="stExpander"] {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+}
+
+/* ── DIVIDER ────────────────────────────────────────────────── */
+hr { border-color: #e2e8f0 !important; margin: 0.75rem 0 !important; }
+
+/* ── SCROLLBAR ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+/* ── CAPTION ────────────────────────────────────────────────── */
+[data-testid="stCaptionContainer"] { color: #94a3b8 !important; }
+
+/* ── TITLE GRADIENT TEXT ────────────────────────────────────── */
+.title-gradient-text {
+    background: linear-gradient(135deg,#1d4ed8,#7c3aed 50%,#059669) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+</style>
+"""
+
+# ---------------------------------------------------------------------------
+# Theme — read from session_state BEFORE CSS injection so correct sheet applies
+# ---------------------------------------------------------------------------
+_theme = st.session_state.get("theme", "Dark")
+st.markdown(DARK_CSS if _theme == "Dark" else LIGHT_CSS, unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -237,28 +472,47 @@ TIER_COLORS = {
     "Low":      [44,  180, 44,  125],
 }
 
-DARK_MAP = "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+DARK_MAP  = "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+LIGHT_MAP = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
 
+# Theme-aware variables (re-read each render from session_state)
+_theme         = st.session_state.get("theme", "Dark")
+MAP_STYLE      = DARK_MAP  if _theme == "Dark" else LIGHT_MAP
+TITLE_GRADIENT = (
+    "linear-gradient(135deg,#60a5fa,#a78bfa 50%,#34d399)"
+    if _theme == "Dark" else
+    "linear-gradient(135deg,#1d4ed8,#7c3aed 50%,#059669)"
+)
+ICON_COLOR  = "#60a5fa" if _theme == "Dark" else "#1d4ed8"
+TEXT_COLOR  = "#f1f5f9" if _theme == "Dark" else "#0f172a"
+SUB_COLOR   = "#475569" if _theme == "Dark" else "#64748b"
+TIP_BG      = "#0c1628" if _theme == "Dark" else "#ffffff"
+TIP_COLOR   = "#e2e8f0" if _theme == "Dark" else "#1e293b"
+TIP_BORDER  = "1px solid #1a3054" if _theme == "Dark" else "1px solid #e2e8f0"
+PURPLE_COLOR = "#a78bfa" if _theme == "Dark" else "#7c3aed"
+GREEN_COLOR  = "#34d399" if _theme == "Dark" else "#059669"
 
 # ---------------------------------------------------------------------------
 # Material Symbol inline helper
 # ---------------------------------------------------------------------------
-def icon(name: str, size: str = "1.15rem", color: str = "#60a5fa") -> str:
-    """Return an inline Material Symbols Outlined <span> for use inside
-    st.markdown(..., unsafe_allow_html=True) calls."""
+def icon(name: str, size: str = "1.15rem", color: str | None = None) -> str:
+    """Return an inline Material Symbols Outlined <span>.
+    Defaults to the theme-aware ICON_COLOR."""
+    clr = color if color is not None else ICON_COLOR
     return (
         f'<span class="material-symbols-outlined" '
-        f'style="font-size:{size};color:{color};vertical-align:middle;'
+        f'style="font-size:{size};color:{clr};vertical-align:middle;'
         f'margin-right:0.3rem;">{name}</span>'
     )
 
 
-def section_header(symbol: str, text: str, color: str = "#60a5fa") -> None:
-    """Render a section heading with a Material Symbol icon via st.markdown."""
+def section_header(symbol: str, text: str, color: str | None = None) -> None:
+    """Render a section heading with a Material Symbol icon."""
+    clr = color if color is not None else ICON_COLOR
     st.markdown(
-        f'<div style="font-size:1.05rem;font-weight:700;color:#f1f5f9;'
+        f'<div style="font-size:1.05rem;font-weight:700;color:{TEXT_COLOR};'
         f'margin:0.6rem 0 0.4rem 0;">'
-        f'{icon(symbol, "1.2rem", color)}{text}</div>',
+        f'{icon(symbol, "1.2rem", clr)}{text}</div>',
         unsafe_allow_html=True,
     )
 
@@ -291,13 +545,32 @@ def recommend_action(row: pd.Series) -> str:
 # ---------------------------------------------------------------------------
 # Sidebar controls
 # ---------------------------------------------------------------------------
+
+# ── Theme toggle (must be first, value feeds CSS on next rerun) ──────────────
 st.sidebar.markdown(
-    f'<div style="font-size:1.05rem;font-weight:700;color:#f1f5f9;padding:0.5rem 0 0.25rem 0;">'
-    f'<span class="material-symbols-outlined" style="font-size:1.2rem;color:#3b82f6;'
+    f'<div style="font-size:1.05rem;font-weight:700;color:{TEXT_COLOR};'
+    f'padding:0.5rem 0 0.25rem 0;">'
+    f'<span class="material-symbols-outlined" style="font-size:1.2rem;color:{ICON_COLOR};'
     f'vertical-align:middle;margin-right:0.4rem;">traffic</span>'
     f'PICIF Controls</div>',
     unsafe_allow_html=True,
 )
+
+_theme_icon = "dark_mode" if _theme == "Dark" else "light_mode"
+st.sidebar.markdown(
+    f'{icon(_theme_icon, "1rem", ICON_COLOR)}<span style="font-weight:600;'
+    f'font-size:0.78rem;color:{SUB_COLOR};text-transform:uppercase;'
+    f'letter-spacing:0.06em;">Theme</span>',
+    unsafe_allow_html=True,
+)
+st.sidebar.radio(
+    "Theme",
+    ["Dark", "Light"],
+    key="theme",
+    horizontal=True,
+    label_visibility="collapsed",
+)
+st.sidebar.markdown("---")
 
 data_source = st.sidebar.radio(
     "Data source",
@@ -364,22 +637,20 @@ view = view.sort_values("congestion_impact_score", ascending=False)
 # Header
 # ---------------------------------------------------------------------------
 st.markdown(
-    """
+    f"""
     <div style="padding:0.25rem 0 0.5rem 0;">
         <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.15rem;">
             <span class="material-symbols-outlined"
-                  style="font-size:2.2rem; color:#60a5fa;
-                         -webkit-text-fill-color:#60a5fa;
+                  style="font-size:2.2rem; color:{ICON_COLOR};
+                         -webkit-text-fill-color:{ICON_COLOR};
                          flex-shrink:0;">traffic</span>
-            <div style="
+            <div class="title-gradient-text" style="
                 font-size:1.9rem; font-weight:800; font-family:'Inter',sans-serif;
-                background:linear-gradient(135deg,#60a5fa,#a78bfa 50%,#34d399);
-                -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-                background-clip:text; line-height:1.2;">
+                line-height:1.2;">
                 Parking-Induced Congestion Intelligence
             </div>
         </div>
-        <div style="color:#475569;font-size:0.82rem;margin-top:0.1rem;letter-spacing:0.04em;">
+        <div style="color:{SUB_COLOR};font-size:0.82rem;margin-top:0.1rem;letter-spacing:0.04em;">
             AI-driven hotspot detection &nbsp;&middot;&nbsp; Physics-informed impact scoring &nbsp;&middot;&nbsp;
             Targeted enforcement prioritization &nbsp;&middot;&nbsp; Bengaluru Traffic Police
         </div>
@@ -435,7 +706,7 @@ deck = pdk.Deck(
     initial_view_state=pdk.ViewState(
         latitude=center_lat, longitude=center_lon, zoom=11, pitch=45
     ),
-    map_style=DARK_MAP,
+    map_style=MAP_STYLE,
     tooltip={
         "html": (
             "<b>{dominant_station}</b><br/>"
@@ -447,9 +718,9 @@ deck = pdk.Deck(
             "Est. Daily Cost: ₹{daily_delay_cost_inr}"
         ),
         "style": {
-            "backgroundColor": "#0c1628",
-            "color": "#e2e8f0",
-            "border": "1px solid #1a3054",
+            "backgroundColor": TIP_BG,
+            "color": TIP_COLOR,
+            "border": TIP_BORDER,
             "borderRadius": "6px",
             "fontSize": "13px",
         },
@@ -524,7 +795,7 @@ with tab1:
     dl_col, info_col = st.columns([1, 2])
     with dl_col:
         st.download_button(
-            "⬇️ Download full hotspot table (CSV)",
+            "Download full hotspot table (CSV)",
             data=hotspots.drop(columns=["tag_breakdown"]).to_csv(index=False),
             file_name="parking_hotspots.csv",
         )
@@ -557,11 +828,11 @@ with tab2:
 
     by_tag = df_hex.explode("tags")
     by_tag = by_tag[by_tag["tags"].isin(PARKING_SEVERITY_WEIGHTS.keys())]
-    section_header("bar_chart", "Violation type mix (parking-relevant tags)", color="#a78bfa")
+    section_header("bar_chart", "Violation type mix (parking-relevant tags)", color=PURPLE_COLOR)
     st.bar_chart(by_tag["tags"].value_counts())
 
     st.markdown("---")
-    section_header("access_time", "Hour-of-Day Violation Density", color="#34d399")
+    section_header("access_time", "Hour-of-Day Violation Density", color=GREEN_COLOR)
     st.caption(
         "Drag the slider to see where violations concentrate at each hour. "
         "Dot size and colour (yellow = high, dark = low) represent relative violation density."
@@ -598,10 +869,16 @@ with tab2:
             initial_view_state=pdk.ViewState(
                 latitude=center_lat, longitude=center_lon, zoom=11, pitch=25
             ),
-            map_style=DARK_MAP,
+            map_style=MAP_STYLE,
             tooltip={
                 "html": "Violations: <b>{count}</b>",
-                "style": {"backgroundColor": "#0c1628", "color": "#e2e8f0"},
+                "style": {
+                    "backgroundColor": TIP_BG,
+                    "color": TIP_COLOR,
+                    "border": TIP_BORDER,
+                    "borderRadius": "6px",
+                    "fontSize": "13px",
+                },
             },
         )
         st.pydeck_chart(hour_deck, width="stretch")
@@ -634,7 +911,7 @@ with tab3:
         st.markdown("---")
 
         st.markdown(
-            f'<div style="font-weight:700;color:#60a5fa;font-size:0.9rem;'
+            f'<div style="font-weight:700;color:{ICON_COLOR};font-size:0.9rem;'
             f'letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.5rem;">'
             f'{icon("bolt", "1.1rem", "#f59e0b")}'
             f'Physics-Informed Impact \u2014 Greenshields Model</div>',
@@ -656,10 +933,10 @@ with tab3:
         st.markdown("---")
 
         breakdown = pd.Series(row["tag_breakdown"]).sort_values(ascending=False)
-        section_header("donut_small", "Violation type breakdown at this hotspot", color="#a78bfa")
+        section_header("donut_small", "Violation type breakdown at this hotspot", color=PURPLE_COLOR)
         st.bar_chart(breakdown)
 
-        section_header("trending_up", "Next 2-week forecast (weekly violation volume)", color="#34d399")
+        section_header("trending_up", "Next 2-week forecast (weekly violation volume)", color=GREEN_COLOR)
         hist = (
             df_hex[df_hex["hex_id"] == sel_hex]
             .assign(
@@ -715,8 +992,8 @@ with tab4:
         m3.metric("Est. daily cost prevented",  f"₹{total_cost_prevented:,}")
 
         st.markdown(
-            f'<div style="font-weight:600;color:#94a3b8;margin:0.5rem 0 0.25rem 0;">'
-            f'{icon("table", "1rem", "#64748b")}Optimal Patrol Assignment Schedule</div>',
+            f'<div style="font-weight:600;color:{SUB_COLOR};margin:0.5rem 0 0.25rem 0;">'
+            f'{icon("table", "1rem", SUB_COLOR)}Optimal Patrol Assignment Schedule</div>',
             unsafe_allow_html=True,
         )
         sched_fmt = {
@@ -841,8 +1118,8 @@ with tab5:
             big_movers = whatif[whatif["rank_change"].abs() > 5].head(6)
             if len(big_movers) > 0:
                 st.markdown(
-                    f'{icon("shuffle", "1rem", "#a78bfa")}'
-                    f'<span style="font-weight:700;color:#f1f5f9;">Biggest rank changes with these weights:</span>',
+                    f'{icon("shuffle", "1rem", PURPLE_COLOR)}'
+                    f'<span style="font-weight:700;color:{TEXT_COLOR};">Biggest rank changes with these weights:</span>',
                     unsafe_allow_html=True,
                 )
                 for _, m in big_movers.iterrows():
@@ -863,7 +1140,7 @@ with tab5:
 
 # ── TAB 6 : Methodology ──────────────────────────────────────────────────────
 with tab6:
-    section_header("menu_book", "How the Congestion Impact Score (CIS) is built", color="#a78bfa")
+    section_header("menu_book", "How the Congestion Impact Score (CIS) is built", color=PURPLE_COLOR)
     st.markdown(
         """
 This dataset contains **enforcement records**, not live road-speed/flow sensor data, so
